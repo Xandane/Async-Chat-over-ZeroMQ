@@ -1,0 +1,22 @@
+import zmq
+import asyncio
+import zmq.asyncio
+import asyncio
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
+
+async def main():
+    context = zmq.asyncio.Context()
+    socket = context.socket(zmq.REP)
+    socket.bind("tcp://127.0.0.1:5555")
+
+    print("🔌 Server is running...")
+
+    while True:
+        msg = await socket.recv_string()
+        print(f"📨 Received from client: {msg}")
+        reply = f"Server received: {msg}"
+        await socket.send_string(reply)
+
+if __name__ == "__main__":
+    asyncio.run(main())
