@@ -1,0 +1,25 @@
+import zmq
+import asyncio
+import zmq.asyncio
+import asyncio
+asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
+
+async def main():
+    context = zmq.asyncio.Context()
+    socket = context.socket(zmq.REQ)
+    socket.connect("tcp://127.0.0.1:5555")
+
+    print(" Connected to server. Type 'exit' to quit.")
+
+    while True:
+        msg = input("You: ")
+        if msg.lower() == "exit":
+            break
+
+        await socket.send_string(msg)
+        reply = await socket.recv_string()
+        print(f"👂 Server: {reply}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
