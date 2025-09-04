@@ -10,11 +10,11 @@ async def main():
     socket = context.socket(zmq.REP)
     socket.bind("tcp://127.0.0.1:5555")
 
-    print("🔌 Server is running...")
+    print(" Server is running...")
 
     while True:
         msg = await socket.recv_string()
-        print(f"📨 Received from client: {msg}")
+        print(f" Received from client: {msg}")
         reply = f"Server received: {msg}"
         await socket.send_string(reply)
 
