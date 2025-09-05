@@ -19,7 +19,7 @@ async def main():
 
         await socket.send_string(msg)
         reply = await socket.recv_string()
-        print(f"👂 Server: {reply}")
+        print(f" Server: {reply}")
 
 if __name__ == "__main__":
     asyncio.run(main())
